@@ -61,7 +61,10 @@ class WebSiteGenerator:
             main {{ max-width: 1200px; margin: 30px auto 0; padding: 0 20px; }}
             .control-panel {{ background-color: rgba(17, 24, 39, 0.4); border: 1px solid #1f2937; border-radius: 12px; padding: 24px; margin-bottom: 30px; display: flex; flex-direction: column; gap: 20px; }}
             .section-title {{ text-transform: uppercase; font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 1px; display: block; margin-bottom: 12px; }}
-            .btn-grid {{ display: flex; flex-wrap: wrap; gap: 8px; }}
+            .btn-grid {{ display: flex; flex-direction: row; gap: 8px; overflow-x: auto; white-space: nowrap; padding-bottom: 8px; scrollbar-width: thin; scrollbar-color: #374151 transparent; }}
+            .btn-grid::-webkit-scrollbar {{ height: 6px; }}
+            .btn-grid::-webkit-scrollbar-track {{ background: transparent; }}
+            .btn-grid::-webkit-scrollbar-thumb {{ background-color: #374151; border-radius: 20px; }}
             .cat-btn {{ padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; border: none; cursor: pointer; transition: all 0.2s; }}
             .btn-inactive {{ background-color: #1f2937; color: #d1d5db; }}
             .btn-inactive:hover {{ background-color: #374151; }}
