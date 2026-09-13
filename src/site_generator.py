@@ -106,7 +106,21 @@ class WebSiteGenerator:
 
             html_middle = """</div></div><div class="bottom-controls"><div><span class="section-title">Тип предложения:</span><div class="btn-grid"><button onclick="toggleGiftOnly()" id="btn-gift" class="action-btn">🤝 Только подарок</button><button onclick="togglePromoOnly()" id="btn-promo" class="action-btn">🔥 Скидки</button></div></div><div><span class="section-title">Диапазон цен (₽):</span><div class="price-inputs-container"><input type="number" id="price-min" oninput="updateDisplay()" placeholder="От" class="price-input"><span>—</span><input type="number" id="price-max" oninput="updateDisplay()" placeholder="До" class="price-input"></div></div><div><span class="section-title">Сортировка по цене:</span><select onchange="sortItems(this.value)" class="select-sort"><option value="default">По умолчанию</option><option value="asc">От дешевых к дорогим</option><option value="desc">От дорогих к дешевым</option><option value="discount-desc">Сначала большие скидки (% 🔥)</option><option value="discount-asc">Сначала маленькие скидки (%)</option></select></div></div></div><div class="products-grid" id="products-grid">"""
 
-            cards_html = "".join(self._render_card(item) for item in products)
+            # Обработка карточек
+            unique_cards = []
+            seen_uids = set()
+
+            for item in products:
+                # Что бы не дублировать - Генерируем ключ ТОЛЬКО по названию и цене (без категории)
+                uid = f"{item.get('name')}_{item.get('price')}"
+                if uid in seen_uids:
+                    continue
+                seen_uids.add(uid)
+                unique_cards.append(self._render_card(item))
+
+            cards_html = "".join(unique_cards)
+
+
 
             js_lines = [
                 "</div></main><script>",
